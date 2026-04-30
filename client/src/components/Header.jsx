@@ -1,4 +1,4 @@
-export default function Header({ page, onNavigate }) {
+export default function Header({ page, onNavigate, theme, onThemeToggle }) {
   const items = [
     { key: 'home', label: '🏠 首页' },
     { key: 'recommend', label: '🎯 推荐' },
@@ -25,6 +25,14 @@ export default function Header({ page, onNavigate }) {
             </button>
           ))}
         </nav>
+        <button
+          className="theme-toggle"
+          onClick={onThemeToggle}
+          title={theme === 'dark' ? '切换亮色模式' : '切换暗色模式'}
+          aria-label={theme === 'dark' ? '切换亮色模式' : '切换暗色模式'}
+        >
+          {theme === 'dark' ? '☀️' : '🌙'}
+        </button>
       </div>
     </header>
   )

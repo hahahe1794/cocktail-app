@@ -20,6 +20,12 @@ function App() {
   const [selected, setSelected] = useState(null)
   const [loading, setLoading] = useState(false)
   const [toasts, setToasts] = useState([])
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark')
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+    localStorage.setItem('theme', theme)
+  }, [theme])
 
   const toast = useCallback((message, type = 'info') => {
     const id = Date.now()
@@ -122,7 +128,7 @@ function App() {
 
   return (
     <div className="app">
-      <Header page={page} onNavigate={setPage} />
+      <Header page={page} onNavigate={setPage} theme={theme} onThemeToggle={() => setTheme(t => t === 'dark' ? 'light' : 'dark')} />
       <main className="main">
         {renderPage()}
       </main>
