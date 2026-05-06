@@ -632,6 +632,10 @@ const insertTag = db.prepare(`
 `);
 
 const insertMany = db.transaction(() => {
+  // Clear existing built-in cocktails (is_custom = 0) before re-seeding
+  // CASCADE foreign key will automatically delete related ingredients, steps, tags
+  db.prepare('DELETE FROM cocktails WHERE is_custom = 0').run();
+
   for (const c of cocktails) {
     const info = insertCocktail.run(
       c.name, c.name_en, c.category, c.base_spirit, c.flavor,

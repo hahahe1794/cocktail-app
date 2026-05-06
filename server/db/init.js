@@ -9,7 +9,9 @@ function getDB() {
 
 function initDB() {
   const db = getDB();
-  
+
+  db.pragma('foreign_keys = ON');
+
   db.exec(`
     CREATE TABLE IF NOT EXISTS cocktails (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
